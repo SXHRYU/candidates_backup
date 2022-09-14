@@ -1,0 +1,10 @@
+run.*
+*.drawio*
+*.vscode
+__pycache__
+logs
+*logs*
+nohup.out
+venv
+*.xlsx*
+*Annotator*

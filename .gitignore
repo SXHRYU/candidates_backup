@@ -3,7 +3,7 @@ run.*
 *.vscode
 __pycache__
 logs
-*logs*
+*.logs*
 nohup.out
 venv
 *.xlsx*

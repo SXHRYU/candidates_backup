@@ -144,9 +144,8 @@ async def get_all_candidates_results(message: types.Message):
 
 def register_general_handlers(dp: Dispatcher):
     dp.register_message_handler(show_menu_commands, text=["Меню", "Menu"])
-    dp.register_message_handler(show_hr_commands, text=["HR"])
     dp.register_message_handler(get_help, commands=["start", "help"])
     dp.register_message_handler(get_help, text=["Помощь", "Help"])
     dp.register_message_handler(get_hr_help, text=["Помощь по меню HR"])
     dp.register_message_handler(get_all_candidates_results, text=["Посмотреть метрики всех пользователей"])
-    dp.register_message_handler(show_menu_commands)
+    dp.register_message_handler(show_hr_commands)

@@ -27,6 +27,8 @@ PLATE_VALUES: tuple[str] = tuple(os.getenv("PLATE_VALUES").split())
 CANDIDATES: str = os.getenv("CANDIDATES")
 # Metrics table name.
 METRICS: str = os.getenv("METRICS")
+# Whitelist table name.
+TRAININGDATA_WHITELIST: str = os.getenv("TRAININGDATA_WHITELIST")
 
 # Database auth variables.
 DB_HOST: str = os.getenv("DB_HOST")

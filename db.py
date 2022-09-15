@@ -7,6 +7,7 @@ from config.env import (
     # Database schemas are present in bot architecture picture.
     CANDIDATES,
     METRICS,
+    TRAININGDATA_WHITELIST,
     DB_HOST,
     DB_PORT,
     DB_NAME,
@@ -16,6 +17,7 @@ from config.env import (
 
 TABLE_CANDIDATES = CANDIDATES
 TABLE_METRICS = METRICS
+TABLE_TRAININGDATA_WHITELIST = TRAININGDATA_WHITELIST
 
 # # Should protect from "SSL SYSCALL error: EOF detected".
 # # https://stackoverflow.com/a/63130830/17601156

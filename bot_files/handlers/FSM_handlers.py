@@ -69,7 +69,7 @@ class FSM_NewCandidate(StatesGroup):
                         + "Ваши данные для входа:\n"
                         + f"Логин: <code>{username}</code>\n"
                         + f"Пароль: <code>{password}</code>\n"
-                        + "Описание задания: ЗДЕСЬ ДОЛЖНА БЫТЬ ССЫЛКА НА НОУШЕН\n" # TODO: ССЫЛКА НА НОУШЕН
+                        + "<a href='https://trainingdata.notion.site/03d63a003e5740e19f63b9f53ec3a306'>Описание задания</a>\n" 
                         + "После успешного выполнения тестового задания, необходимо перейти в главное меню, "
                         + "нажать кнопку  '<code>Тестовое задание выполнено☑️</code>' и подтвердить выполнение. Удачи!"),
                     parse_mode="HTML",
@@ -93,8 +93,11 @@ class FSM_ExistingCandidate(StatesGroup):
     async def existing_candidate_command(message: types.Message):
         await FSM_ExistingCandidate.confirm.set()
         await message.reply(
-            "Задание выполнено?",
+            ("Задание выполнено?\n"
+                + "<b>Примечание</b>: на сайте необходимо нажать кнопку «сохранить разметку», "
+                + "чтобы мы проверили задание."),
             reply_markup=kb.confirm_kb,
+            parse_mode="HTML",
         )
 
     async def existing_candidate_confirm(message: types.Message, state: FSMContext):

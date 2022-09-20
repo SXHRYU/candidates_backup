@@ -16,9 +16,6 @@ TASKS_URL: str = os.getenv("TASKS_URL")
 # Bot variables.
 BOT_TOKEN: str = os.getenv("BOT_TOKEN")
 
-# HR variables.
-HR_USERS: tuple[int] = tuple(map(int, os.getenv("HR_USERS").split()))
-
 # Metrics variables.
 PLATE_VALUES: tuple[str] = tuple(os.getenv("PLATE_VALUES").split())
 

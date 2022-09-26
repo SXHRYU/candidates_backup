@@ -1,6 +1,5 @@
 from db import (
     TABLE_CANDIDATES,
-    TABLE_METRICS,
     reconnect_on_failure,
 )
 from .types import T_connection

@@ -68,7 +68,10 @@ def task_complete(telegram_username: str) -> bool | str:
     elif not all_images_done:
         error_message = ("Не все разметки сделаны. "
             + "У вас должно быть размечено 5 машин и 5 номеров (с указанием букв и цифр).")
-    elif not only_polygons or not correct_plates:
+    elif not only_polygons:
+        error_message = ("Все разметки (машины и номера машин) необходимо"
+                    + "сделать с помощью polygon. Проверьте все картинки.")
+    elif not correct_plates:
         error_message = ("Неправильно размечены номера машин. "
             + "Их нужно размечать только с помощью polygon, используя 4 точки.")
     elif not all_plates_done:

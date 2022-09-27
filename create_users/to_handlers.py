@@ -12,24 +12,6 @@ from .generation import generate_account
 from .registration import delete_account, patch_role, register_account
 
 
-# WORKFLOW of the package:
-## generation.py
-### 1.1)Generate username;
-### 1.2)Generete password;
-### 1.3)Generate account payload.
-## registration.py
-### 2.1)Register user;
-## to_handlers.py
-### 3.1.1)If registered successfully, continue;
-### 3.1.2)If registration failed, return error message;
-### 3.2)Add user to database of registered candidates;
-### 3.2.1)If database operation was a success, 
-###         return (username, password);
-### 3.2.2)If database operation was a failure,
-###         return error message and delete from server;
-### 3.3)If all checks passed, PATCH a "worker" role to account;
-### 3.4)Send credentials to candidate.
-
 @log
 def get_user_credentials(telegram_username: str) -> T_payload | str:
     """Returns user's credentials or sends an error message.
@@ -47,7 +29,7 @@ def get_user_credentials(telegram_username: str) -> T_payload | str:
 
     Returns
     -------
-    created_account : T_payload
+    created_account : dict[str, str | list[str | None]]
         Returns on success of registration.
     error_message : str
         Returns on failure of registration.

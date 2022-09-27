@@ -63,7 +63,7 @@ def generate_password() -> str:
 
 @log
 def generate_account(telegram_username: str) -> T_payload:
-    """Creates account's payload to send to register_user() function.
+    """Creates account's payload to send to `register_user()` function.
 
     Parameters
     ----------

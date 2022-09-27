@@ -50,15 +50,16 @@ def add_candidate_to_db(telegram_username: str,
     Parameters
     ----------
     telegram_username : str
-        Candidate's telegram username.
+        Telegram login/username of candidate that requested account.
+        Will be used as a value in db.
     candidate_username : str
-        Candidate's generated username that
-        will be used to create an account on
-        candidates.trainingdata.solutions.
+        Candidate's generated username that will be used to create
+        an account on candidates.trainingdata.solutions.
+        Will be used as a value in db.
     candidate_password : str
-        Candidate's generated password that
-        will be used to create an account on
-        candidates.trainingdata.solutions.
+        Candidate's generated password that will be used to create
+        an account on candidates.trainingdata.solutions.
+        Will be used as a value in db.
         It is stored UNENCRYPTED.
     conn : psycopg2.connection
         Connection object with info about connection to db.
@@ -102,7 +103,8 @@ def delete_candidate_from_db(telegram_username: str,
     Parameters
     ----------
     telegram_username : str
-        Candidate's telegram username.
+        Telegram login/username of candidate that requested account.
+        Will be used to delete the correct candidate.
     conn : psycopg2.connection
         Connection object with info about connection to db.
         Must be passed as a keyword-argument.
@@ -142,7 +144,8 @@ def remember_username_password(telegram_username: str,
     Parameters
     ----------
     telegram_username : str
-        Candidate's telegram username.
+        Telegram login/username of candidate that requested account.
+        Will be used to return the correct credentials.
     conn : psycopg2.connection
         Connection object with info about connection to db.
         Must be passed as a keyword-argument.

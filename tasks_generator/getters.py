@@ -2,6 +2,12 @@ from connection import establish_connection, get_user_tasks, get_user
 from .types import T_task, T_user
 
 
+"""`README.md`, sec. "Why Use `getters`" ("Зачем нужны getters").
+
+Helper functions that offer entry-point for `connection` module,
+provide better isolation, higher cohesion and lower coupling.
+"""
+
 def _get_user(username: str) -> T_user:
     session = establish_connection()
     user = get_user(session, username=username)

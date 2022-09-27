@@ -8,11 +8,13 @@ from .types import T_payload
 
 
 def register_account(**data: T_payload) -> requests.Response:
-    """Registers generated accounts in the database.
+    """Registers generated account on the site.
     
+    Uses payload generated from `generation.generate_account()`.
+
     Parameters
     ----------
-    **data : dict[str, str, str, list[str | None]]
+    **data : dict[str, str | list[str | None]]
         In base case: `username=`, `password1=`, 
         `password2=`, `confirmations=`.
 
@@ -29,7 +31,24 @@ def register_account(**data: T_payload) -> requests.Response:
 
 @log
 def delete_account(**data: dict[str, str]) -> requests.Response:
+    """Deletes account from the site.
+    
+    Parameters
+    ----------
+    TODO: add params
+
+    Returns
+    -------
+    response : requests.Response
+        Response from the API. If success, 204.
+    """
     session = establish_connection()
+
+    # This is an example of why a `getters` module should exist.
+    # Here it is only 2 functions that call to `connection` module,
+    # but it could get a lot worse and these functions can get scattered
+    # across this module.
+    # (cont. in `patch_role()`)
 
     user = get_user(session, **data)
     user_id = user["id"]
@@ -65,6 +84,9 @@ def patch_role(role: list[str] = ["worker"],
     """
     session = establish_connection()
 
+    # (continued from `delete_account()`)
+    # With no entry point for the `connection` module to export its'
+    # functions to, they can get lost and get harder to debug.
     user = get_user(session, **data)
     user_id = user["id"]
 

@@ -19,8 +19,9 @@ def generate_username(telegram_username: str) -> str:
 
     Returns
     -------
-    username : str
-        Username that will be used to register to CVAT.
+    account_username : str
+        Username that will be used to register on
+        candidates.trainingdata.solutions.
 
     See also
     --------
@@ -39,7 +40,7 @@ def generate_password() -> str:
     -------
     password : str
         Alphanumeric password generated using `secrets`
-        module of Python. `secrets` is to be considered
+        module of Python. The `secrets` module is to be considered
         superior in safety than Python's `random` module.
 
     See also
@@ -71,16 +72,17 @@ def generate_account(telegram_username: str) -> T_payload:
 
     Returns
     -------
-    created_account : tuple[str, str]
-        (username, password).
+    account_payload : dict[str, str | list[str | None]]
+        keys: ("username", "password1", "password1", "confirmations").
         Usernames are generated with the specific format:
         <telegram_username>_test_Annotator
+        `confirmations` default=[]
 
     See also
     --------
     generate_username()
     generate_password()
-    register_account()
+    registration.register_account()
     
     Notes
     -----

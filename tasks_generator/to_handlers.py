@@ -12,7 +12,23 @@ from .getters import (
 )
 from .types import T_images, T_response, T_task, T_user
 
+
+"""Module with driver functions to export to handlers."""
+
 def task_generated(telegram_username: str) -> bool:
+    """Generates the task and returns the status to the candidate.
+
+    Parameters
+    ----------
+    telegram_username : str
+        Telegram login/username of candidate that requested task.
+
+    Returns
+    -------
+    created? : bool
+        `True` if task was created successfully,
+        `False` otherwise.
+    """
     assignee: T_user = _get_user(telegram_username)
     assignee_id: int = _get_user_id(assignee)
     assignee_username: str = _get_user_username(assignee)

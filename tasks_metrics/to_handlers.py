@@ -47,7 +47,21 @@ from .metrics import (
 from .types import T_annotation, T_task, T_user, T_metrics
 
 
+"""Module with driver functions to export to handlers."""
+
 def task_complete(telegram_username: str) -> bool | str:
+    """Checks if task is completed and generates error messages if not.
+
+    Parameters
+    ----------
+    telegram_username : str
+        Telegram login/username of candidate that completed the task.
+    
+    Returns
+    -------
+    task_status : bool | str
+        `True` if complete, otherwise message indicating the error.
+    """
     candidate: T_user = _get_user(telegram_username)
     candidate_username: str = _get_user_username(candidate)
     
@@ -80,6 +94,17 @@ def task_complete(telegram_username: str) -> bool | str:
         
 
 def send_HR_metrics(telegram_username: str) -> None:
+    """Generates metrics and updates the database.
+
+    Parameters
+    ----------
+    telegram_username : str
+        Telegram login/username of candidate that completed the task.
+    
+    Returns
+    -------
+    None
+    """
     candidate: T_user = _get_user(telegram_username)
     candidate_username: str = _get_user_username(candidate)
     times_attempted: int = _get_times_attempted(candidate_username)
@@ -159,6 +184,7 @@ def send_HR_metrics(telegram_username: str) -> None:
     update_metrics(telegram_username, db_metrics, conn=db_conn)
 
 def generate_excel() -> tuple[str, str]:
+    """Generates excel with all users` metrics."""
     all_results = get_all_metrics(conn=db_conn)
     column_names = all_results[0]
     df = pd.DataFrame(*all_results[1:], columns=column_names)
@@ -171,6 +197,25 @@ def generate_excel() -> tuple[str, str]:
     return (excel_file_name, excel_output_name)
 
 def get_candidate_formatted_results(telegram_username: str) -> str:
+    """Returns candidate's results in neetly formatted view.
+    
+    Mainly used by HR through bot's interface.
+    
+    Parameters
+    ----------
+    telegram_username : str
+        Telegram login/username of a requested candidate's metrics.
+    
+    Returns
+    -------
+    formatted_results : str
+        Candidate's metrics formatted like following:
+        "car_iou: 99.11
+        plate_iou: 16.28
+        plate_accuracy: 100
+        ...
+        times_attempted: 2"
+    """
     results = get_candidate_metrics(telegram_username, conn=db_conn)
     formatted_results = ""
     for column_name, value in zip(results[0], *results[1]):
@@ -178,6 +223,18 @@ def get_candidate_formatted_results(telegram_username: str) -> str:
     return formatted_results
 
 def get_candidate_results(telegram_username: str) -> T_metrics:
+    """Returns specified user's results.
+
+    Parameters
+    ----------
+    telegram_username : str
+        Telegram login/username of a requested candidate's results.
+
+    Returns
+    -------
+    results : T_metrics
+        Results of user's task completion.
+    """
     _results = get_candidate_metrics(telegram_username, conn=db_conn)
     results = {}
     for column_name, value in zip(_results[0], *_results[1]):

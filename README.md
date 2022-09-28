@@ -2,6 +2,56 @@
 
 в самом конце содержится **tl;dr**, если не нужно понимать/менять логику расчётов, а нужно просто функции вставить к собственным хэндлерам
 
+# Содержание
+1. [Содержание репозитория](#repo-contents)
+	1. [bot_files](#bot-files)
+		* `keyboards.py `
+		* `/handlers`
+			* `FSM_handlers.py`
+			* `general_handlers.py`
+	2. [config](#config)
+		* `env.py`
+	3. [logs](#logs)
+	4. [media](#media)
+	5. [create_users](#create-users)
+		* `db_operations.py`
+		* `generation.py`
+		* `registration.py`
+		* `to_handlers.py`
+	6. [tasks_generator](#tasks-generator)
+		* `generation.py`
+		* `getters.py`
+		* `types.py`
+		* `to_handlers.py`
+	7. [tasks_metrics](#tasks-metrics)
+		* `checker.py`
+		* `differences.py`
+		* `generation.py`
+		* `metrics.py`
+		* `getters.py`
+		* `to_handlers.py`
+		* `types.py`
+	8. [tasks_new](#tasks-new)
+		* `to_handlers.py`
+	9. [Другое](#other)
+		*  `action_logs.py` 
+		* `authorization.py`
+		* `connection.py`
+		* `db.py`
+		* `main.py`
+2. [Запуск](#run)
+3. [Архитектура бота (& user experience)](#architecture)
+4. [Строение базы данных](#database)
+	1. [Схема](#database-schema)
+	2. [Функции и триггеры](#database-triggers)
+5. [Замечания по названиям](#naming)
+6. [Как создаются таски](#task-creation)
+7. [Метрики](#metrics)
+8. [Зачем нужны getters](#getters)
+9. [tl;dr](#tldr)
+10. [Автор](#author) 
+
+<a name="repo-contents"></a>
 ## Содержание репозитория
 
 ### bot_files
@@ -73,6 +123,7 @@
 * `authorization.py` -- доступ в меню HR. Передавать `@auth` на хэндлеры, которые ведут к служебным функциям.
 * `connection.py` -- Соединение и работа с [candidates.trainingdata.solutions](candidates.trainingdata.solutions). Передавать `establish_connection()` в функции, которые требуют подключение к [candidates.trainingdata.solutions](candidates.trainingdata.solutions) (в качестве аргумента `session`, либо в теле соответствующей функции). Также содержит функции, работающие с API, которые экспортируются в `getters` соответствующих пакетов.
 * `db.py` -- данные для подключения к базе данных **trainingdata_candidates** . Передавать `db_conn` (объект подключения) и `@reconnect_on_failure` (переподключение необходимо, так как сервер с базой данных падает независимо от сервера, на котором крутится бот) на функции, напрямую обращающиеся к базе данных.
+* `main.py` -- непосредственно сам инстанс бота, файл для запуска.
 
 ## Запуск
 
@@ -311,6 +362,25 @@ session.post(
 Картинки, прикреплённые к таску хранятся в `/var/lib/docker/volumes/cvat_cvat_data/_data/data` (та `"data"`, которую мы получили на предыдущем шаге)
 В эти папки необходимо заходить под `root`'ом. Если нет пароля, можно ввести `sudo -s`, чтобы перейти в shell `root`'а, и `cd` в нужные папки.
 
+## Метрики
+
+* [**Intersection over Union (IoU)**](https://towardsdatascience.com/intersection-over-union-iou-calculation-for-evaluating-an-image-segmentation-model-8b22e2e84686) -- для машин и номеров:
+	* Среднее значение по машинам (car_iou);
+	* Среднее значение по номерам (plate_iou).
+* **Plate accuracy**/**Plate value accuracy** -- точность транскрибации значений номеров машин (plate_accuracy). Индивидуальное значение либо ПОЛНОСТЬЮ правильное, либо неправильное, например:
+	* Идеал: ('BITNY427', '123OwO321', 'Yy298bm')
+	От пользователя: ('BITNY427', '123OWO321', 'Yу298bm')
+	Результат plate accuracy = 1/3:
+		* 2 значение с 'W', а в оригинале 'w';
+		* 3 значение использует русскую 'у' вместо английской 'y'.
+	
+	Вне зависимости от сходства, различий в капитализации букв и т. п., если даже 1 символ неправильный, то всё значение считается неправильным.
+
+* **Task started**/**Дата начала задания**. Более технически: когда кандидат подтвердил желание получить тестовое задание у бота в телеграме (task_started).
+* **Task ended**/**Дата окончания задания**. Более технически: когда аккаунт последний раз редактировал разметку на [candidates.trainingdata.solutions](candidates.trainingdata.solutions) (task_ended).
+* **Task completed**/**Время выполнения задания**. Более технически: разность между task_ended и task_started (task_completed).
+* **Times attempted**/**Количество попыток**. Сколько раз кандидат получил тестовое задание (times_attempted). В случае повторного прохождения, **все метрики пересчитываются по последней попытке**.
+
 ## Зачем нужны getters
 
 В этом модуле располагаются helper-функции, которые позволяют изолировать каждый пакет от других, появляется единая точка входа для  взаимодействия с GET-методами API сайта, уменьшается размер кода в конечных `to_handlers.py` файлах.
@@ -320,4 +390,4 @@ session.post(
 
 Если логику работы приложения не надо трогать, в файл с хэндлерами просто импортировать из каждого пакета модуль `to_handlers.py`, а оттуда уже нужные функции. Эти функции используют лишь те данные, которые можно вытащить из сообщений пользователей.
 
-# [t.me/SXRu1](t.me/SXRu1)
+# [Автор](https://t.me/SXRu1)

@@ -138,12 +138,13 @@
 ## Запуск
 
 Зависимости:
-* aiogram
-* requests
-* psycopg2
-* numpy
-* opencv
-* pandas
+* [aiogram](https://pypi.org/project/aiogram/)
+* [requests](https://pypi.org/project/requests/)
+* [psycopg2](https://pypi.org/project/psycopg2/)
+* [numpy](https://pypi.org/project/numpy/)
+* [opencv](https://pypi.org/project/opencv-python/)
+* [pandas](https://pypi.org/project/pandas/)
+* [pillow](https://pypi.org/project/Pillow/)
 
 1) Активировать виртуальное окружение: `source venv/bin/activate`
 2) Если бот запускается впервые, установить зависимости: `pip install -r requirements.txt`. Иначе можно пропустить этот шаг.

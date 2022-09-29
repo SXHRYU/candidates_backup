@@ -11,5 +11,5 @@ jobs:
           cache: 'pip'
       - run: pip install -r requirements.txt
       - run: pip freeze
-      - run: ls -la
+      - run: python /create_users/tests.py
 

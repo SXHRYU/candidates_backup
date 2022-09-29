@@ -137,6 +137,8 @@
 <a name="run"></a>
 ## Запуск
 
+(`crontab -e`: `@reboot cd ~/trainingdata_candidates/ && source venv/bin/activate && ./run.sh`)
+
 Зависимости:
 * [aiogram](https://pypi.org/project/aiogram/)
 * [requests](https://pypi.org/project/requests/)

@@ -40,5 +40,5 @@ def test_get_all_candidates(db_conn, fake_transaction):
         ('2', '2_username', '2_password'),
         ('3', '3_username', '3_password')
     ]
-    assert unwrapped_get_all_candidates(db_conn) == result
+    assert unwrapped_get_all_candidates(conn=db_conn) == result
     

@@ -6,8 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # TODO: set up for future
-      DB_PORT: ""
-      ADMIN_ID: ""
+      DB_PORT: 5432
+      ADMIN_ID: 1
       PLATE_VALUES: ""
       ROOT_DIR: ""
       ALL_RESULTS_EXCEL_DIR: ""

@@ -1,16 +1,37 @@
 name: Tests
 on: [push]
 jobs:
+
+  # Job name
   test-create_users:
+    # Create mock database for sql operations.
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_password
+          POSTGRES_DB: test_db
+          # POSTGRES_HOST: 5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
+      
+      - name: Setting up Python
       - uses: actions/setup-python@main
         with:
           python-version: '3.10.6'
           cache: 'pip'
+      
+      - name: Installing Dependencies
       - run: pip install -r requirements.txt
       - run: pytest -v tests/create_users_test.py
+      
   test-tasks_generator:
     runs-on: ubuntu-latest
     steps:
@@ -21,6 +42,7 @@ jobs:
           cache: 'pip'
       - run: pip install -r requirements.txt
       - run: pytest -v tests/tasks_generator_test.py
+
   test-tasks_metrics:
     runs-on: ubuntu-latest
     steps:
@@ -31,6 +53,7 @@ jobs:
           cache: 'pip'
       - run: pip install -r requirements.txt
       - run: pytest -v tests/tasks_metrics_test.py
+
   test-tasks_new:
     runs-on: ubuntu-latest
     steps:

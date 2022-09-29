@@ -11,6 +11,7 @@ jobs:
       DB_USER: test_user
       DB_PASSWORD: test_password
       DB_HOST: localhost
+      TABLE_CANDIDATES: candidates
       ADMIN_ID: 1
       PLATE_VALUES: ""
       ROOT_DIR: ""

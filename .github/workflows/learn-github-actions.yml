@@ -6,6 +6,11 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ADMIN_ID: 1
+      PLATE_VALUES: ""
+      ROOT_DIR: ""
+      ALL_RESULTS_EXCEL_DIR: ""
+      USER_IMAGES_DIR: ""
+      
     # Create mock database for sql operations.
     services:
       postgres:

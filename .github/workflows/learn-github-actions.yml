@@ -7,6 +7,10 @@ jobs:
     env:
       # TODO: set up for future
       DB_PORT: 5432
+      DB_NAME: test_db
+      DB_USER: test_user
+      DB_PASSWORD: test_password
+      DB_HOST: localhost
       ADMIN_ID: 1
       PLATE_VALUES: ""
       ROOT_DIR: ""

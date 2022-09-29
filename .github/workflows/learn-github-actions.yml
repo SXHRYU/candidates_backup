@@ -5,7 +5,9 @@ jobs:
   test-create_users:
     runs-on: ubuntu-latest
     env:
-      ADMIN_ID: 1
+      # TODO: set up for future
+      DB_PORT: ""
+      ADMIN_ID: ""
       PLATE_VALUES: ""
       ROOT_DIR: ""
       ALL_RESULTS_EXCEL_DIR: ""

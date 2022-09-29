@@ -10,7 +10,7 @@ jobs:
           python-version: '3.10.6'
           cache: 'pip'
       - run: pip install -r requirements.txt
-      - run: pytest tests/create_users_test.py
+      - run: pytest -v tests/create_users_test.py
   test-tasks_generator:
     runs-on: ubuntu-latest
     steps:
@@ -20,7 +20,7 @@ jobs:
           python-version: '3.10.6'
           cache: 'pip'
       - run: pip install -r requirements.txt
-      - run: pytest tests/tasks_generator_test.py
+      - run: pytest -v tests/tasks_generator_test.py
   test-tasks_metrics:
     runs-on: ubuntu-latest
     steps:
@@ -30,7 +30,7 @@ jobs:
           python-version: '3.10.6'
           cache: 'pip'
       - run: pip install -r requirements.txt
-      - run: pytest tests/tasks_metrics_test.py
+      - run: pytest -v tests/tasks_metrics_test.py
   test-tasks_new:
     runs-on: ubuntu-latest
     steps:
@@ -40,5 +40,5 @@ jobs:
           python-version: '3.10.6'
           cache: 'pip'
       - run: pip install -r requirements.txt
-      - run: pytest tests/tasks_new_test.py
+      - run: pytest -v tests/tasks_new_test.py
 

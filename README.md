@@ -139,7 +139,7 @@
 
 (`crontab -e`: `@reboot cd ~/trainingdata_candidates/ && source venv/bin/activate && ./run.sh`)
 
-Зависимости:
+Зависимости (in no particular order):
 * [aiogram](https://pypi.org/project/aiogram/)
 * [requests](https://pypi.org/project/requests/)
 * [psycopg2](https://pypi.org/project/psycopg2/)
@@ -147,6 +147,7 @@
 * [opencv](https://pypi.org/project/opencv-python/)
 * [pandas](https://pypi.org/project/pandas/)
 * [pillow](https://pypi.org/project/Pillow/)
+* [pytest](https://pypi.org/project/pytest/)
 
 1) Активировать виртуальное окружение: `source venv/bin/activate`
 2) Если бот запускается впервые, установить зависимости: `pip install -r requirements.txt`. Иначе можно пропустить этот шаг.

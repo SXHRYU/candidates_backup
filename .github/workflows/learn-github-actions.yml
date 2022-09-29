@@ -31,7 +31,7 @@ jobs:
           cache: 'pip'
       - run: pip install -r requirements.txt
       - run: pytest tests/tasks_metrics_test.py
-  test-new:
+  test-tasks_new:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main

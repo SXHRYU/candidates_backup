@@ -1,9 +1,11 @@
 name: Tests
 on: [push]
 jobs:
-
   # Job name
   test-create_users:
+    runs-on: ubuntu-latest
+    env:
+      ADMIN_ID: 1
     # Create mock database for sql operations.
     services:
       postgres:
@@ -13,14 +15,13 @@ jobs:
           POSTGRES_PASSWORD: test_password
           POSTGRES_DB: test_db
         ports:
+        # Map PostgreSQL container to host's port 5432.
           - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-        # Map PostgreSQL container to host's port 5432.
-    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
       

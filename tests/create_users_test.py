@@ -35,10 +35,5 @@ def fake_transaction(db_conn):
 def test_get_all_candidates(db_conn, fake_transaction):
     fake_transaction
     unwrapped_get_all_candidates = get_all_candidates.__wrapped__
-    result = [
-        ('1', '1_username', '1_password'),
-        ('2', '2_username', '2_password'),
-        ('3', '3_username', '3_password')
-    ]
+    result = ['1', '2', '3']
     assert unwrapped_get_all_candidates(conn=db_conn) == result
-    

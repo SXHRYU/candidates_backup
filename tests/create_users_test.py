@@ -1,6 +1,7 @@
 import pytest
 import psycopg2
-from create_users.db_operations import get_all_candidates
+# from create_users.db_operations import get_all_candidates
+
 
 @pytest.fixture
 def db_conn():

@@ -139,7 +139,7 @@
 
 (`crontab -e`: `@reboot cd ~/trainingdata_candidates/ && source venv/bin/activate && ./run.sh`)
 
-Зависимости:
+Зависимости (in no particular order):
 * [aiogram](https://pypi.org/project/aiogram/)
 * [requests](https://pypi.org/project/requests/)
 * [psycopg2](https://pypi.org/project/psycopg2/)
@@ -147,6 +147,7 @@
 * [opencv](https://pypi.org/project/opencv-python/)
 * [pandas](https://pypi.org/project/pandas/)
 * [pillow](https://pypi.org/project/Pillow/)
+* [pytest](https://pypi.org/project/pytest/)
 
 1) Активировать виртуальное окружение: `source venv/bin/activate`
 2) Если бот запускается впервые, установить зависимости: `pip install -r requirements.txt`. Иначе можно пропустить этот шаг.
@@ -375,7 +376,7 @@ session.post(
 # я не гарантирую. Такой запрос успешно работал.
 ```
 
-4) При успешном объединении таска с изображениями нам должен прийти ответ, в котором должен содержаться ключ-значение `"data": <числовое значение папки на сервере>`. **Примечание**: при неуспешном объединении тоже приходит ответ "2xx", но таск остаётся "пустым". Необходимо проверять наличие ключа `"data"`, чтобы быть уверенным в успехе.
+4) При успешном объединении таска с изображениями нам должен прийти ответ, в котором должен содержаться ключ-значение `"data": <числовое значение папки на сервере>` и `"segments": [<информация о jobs>]`. **Примечание**: при неуспешном объединении тоже приходит ответ "2xx", но таск остаётся "пустым". Необходимо проверять наличие ключа `"segments"` и непустого значения, чтобы быть уверенным в успехе.
 
 5) Данные тасков (логи, артефакты) хранятся в `/var/lib/docker/volumes/cvat_cvat_data/_data/tasks`
 Картинки, прикреплённые к таску хранятся в `/var/lib/docker/volumes/cvat_cvat_data/_data/data` (та `"data"`, которую мы получили на предыдущем шаге)

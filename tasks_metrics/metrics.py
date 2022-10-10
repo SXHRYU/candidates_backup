@@ -218,7 +218,10 @@ def get_all_metrics(*, conn) -> list[tuple[T_metrics]]:
         for row in cur_results:
             time_started_row = row[4]
             time_ended_row = row[5]
-            row[6] = str(time_ended_row - time_started_row).replace(":", "--")
+            try:
+                row[6] = str(time_ended_row - time_started_row).replace(":", "--")
+            except TypeError:
+                row[6] = "В процессе"
 
         results.append([i.name for i in cur.description])
         results.append(cur_results)

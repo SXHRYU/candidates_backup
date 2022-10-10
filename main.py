@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from aiogram import Bot
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
@@ -19,12 +21,14 @@ general_handlers.register_general_handlers(dp)
 async def on_startup(_):
     """Prints to stdout when the bot has started, passing by the logs.
     """
-    return print("Bot started.")
+    today = str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    return print(f"Bot started on {today}.")
 
 async def on_shutdown(_):
     """Prints to stdout when the bot has stopped, passing by the logs.
     """
-    return print("Bot stopped.")
+    today = str(datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    return print(f"Bot stopped on {today}.")
 
 if __name__ == "__main__":
     executor.start_polling(

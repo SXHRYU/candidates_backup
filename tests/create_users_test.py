@@ -196,3 +196,20 @@ class Test_generation:
 
         assert generate_username(telegram_username) == account_username
 
+    def test_generate_password(self):
+        from create_users.generation import generate_password
+
+        common_passwords = [
+            "123456",
+            "123456789",
+            "qwerty",
+            "password",
+            "12345",
+            "qwerty123",
+            "1q2w3e",
+            "12345678",
+            "111111",
+            "1234567890",
+        ]
+        for common_password in common_passwords:
+            assert generate_password != common_password

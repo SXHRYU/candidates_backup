@@ -8,4 +8,4 @@ nohup.out
 venv
 *.xlsx*
 *Annotator*
-/all_results
+/all_results/*

@@ -35,12 +35,19 @@ def delete_account(**data: dict[str, str]) -> requests.Response:
     
     Parameters
     ----------
-    TODO: add params
+    **data : dict[str, str]
+        `username` or `first_name` or `last_name` of an account.
+        Used to search for the required account on the site.
 
     Returns
     -------
     response : requests.Response
         Response from the API. If success, 204.
+    
+    See also
+    --------
+    `connection.get_user`
+        How **data gets processed.
     """
     session = establish_connection()
 

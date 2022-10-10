@@ -1,4 +1,5 @@
 from os import environ, getenv
+from typing import KeysView
 import pytest
 import psycopg2
 
@@ -213,3 +214,18 @@ class Test_generation:
         ]
         for common_password in common_passwords:
             assert generate_password != common_password
+
+    def test_generate_account(self):
+        from create_users.generation import generate_account
+
+        result = generate_account("tester")
+        assert result.keys() == KeysView([
+            "username",
+            "password1",
+            "password2",
+            "confirmations",
+        ])
+        assert result["username"] == "tester_test_Annotator"
+        assert result["password1"] == result["password2"]
+        assert isinstance(result["confirmations"], list)
+

@@ -9,3 +9,4 @@ venv
 *.xlsx*
 *Annotator*
 /all_results/*
+!/all_results/.gitkeep

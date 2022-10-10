@@ -90,3 +90,17 @@ def test_add_candidate_to_db(db_conn, fake_transaction, fake_select):
         ('3', '3_username', '3_password'),
         ("tester", "tester-username", "tester-password")
     ]
+
+def test_add_candidate_to_db_return(db_conn, fake_transaction):
+    from create_users.db_operations import add_candidate_to_db
+
+    unwrapped_add_candidate_to_db = add_candidate_to_db.__wrapped__
+    added_candidate = unwrapped_add_candidate_to_db(
+        "tester",
+        "tester-username",
+        "tester-password",
+        conn=db_conn
+    )
+
+    
+    assert added_candidate == "tester"

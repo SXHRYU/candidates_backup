@@ -193,7 +193,7 @@ def generate_excel() -> tuple[str, str]:
     try:
         df.to_excel(excel_file_name)
     except OSError as e:
-        if str(e).startswith("Cannot save file into a non-existent directorys"):
+        if str(e).startswith("Cannot save file into a non-existent directory"):
             Path.mkdir(ALL_RESULTS_EXCEL_DIR, exist_ok=True)
         else:
             raise Exception("Uncaught OSError. Requires debugging.") # in case of new errors

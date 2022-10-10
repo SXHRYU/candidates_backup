@@ -190,7 +190,13 @@ def generate_excel() -> tuple[str, str]:
     df = pd.DataFrame(*all_results[1:], columns=column_names)
     
     excel_file_name = f"{ALL_RESULTS_EXCEL_DIR}/{datetime.today().date()}.xlsx"
-    df.to_excel(excel_file_name)
+    try:
+        df.to_excel(excel_file_name)
+    except OSError as e:
+        if str(e).startswith("Cannot save file into a non-existent directorys"):
+            Path.mkdir(ALL_RESULTS_EXCEL_DIR, exist_ok=True)
+        else:
+            raise Exception("Uncaught OSError. Requires debugging.") # in case of new errors
     actual_file_name_length = len(str(datetime.today().date())) + len(".xlsx")
     excel_output_name = excel_file_name[-actual_file_name_length:]
 

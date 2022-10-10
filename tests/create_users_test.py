@@ -56,6 +56,8 @@ def test_get_all_candidates(db_conn, fake_transaction):
     from create_users.db_operations import get_all_candidates
 
     fake_transaction
+    if getenv("CI"):
+        print("!!!!!!!!!!!!")
     unwrapped_get_all_candidates = get_all_candidates.__wrapped__
     result = ['1', '2', '3']
     assert unwrapped_get_all_candidates(conn=db_conn) == result

@@ -149,3 +149,34 @@ def test_remember_username_password(db_conn, fake_transaction,
 
     assert result(telegram_username, conn=db_conn) == output
 
+def test_complex_operations(db_conn, fake_transaction, fake_select):
+    from create_users.db_operations import (
+        add_candidate_to_db,
+        delete_candidate_from_db,
+        get_all_candidates
+    )
+
+    unwrapped_delete = delete_candidate_from_db.__wrapped__
+    unwrapped_add = add_candidate_to_db.__wrapped__
+    unwrapped_get = get_all_candidates.__wrapped__
+
+    unwrapped_delete("3", conn=db_conn)
+    unwrapped_add("added_4", "added_4_username", "added_4_password", conn=db_conn)
+    unwrapped_add("added_4", "added_4_username", "added_4_password", conn=db_conn)
+    unwrapped_add("added_5", "added_5_username", "added_5_password", conn=db_conn)
+    unwrapped_delete("1", conn=db_conn)
+    unwrapped_add("0", "0", "0", conn=db_conn)
+    unwrapped_add("0", "0_username", "0_password", conn=db_conn)
+    unwrapped_delete("0", conn=db_conn)
+    unwrapped_add("0", "0_username", "0_password", conn=db_conn)
+
+    result_0 = unwrapped_get(conn=db_conn)
+    assert result_0 == ["2","added_4","added_4","added_5","0"]
+    result_1 = fake_select()
+    assert result_1 == [
+        ('2', '2_username', '2_password'),
+        ("added_4", "added_4_username", "added_4_password"),
+        ("added_4", "added_4_username", "added_4_password"),
+        ("added_5", "added_5_username", "added_5_password"),
+        ("0", "0_username", "0_password")
+    ]

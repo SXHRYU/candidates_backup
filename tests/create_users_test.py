@@ -132,3 +132,20 @@ def test_delete_candidate_from_db_return(db_conn, fake_transaction):
 
     assert result == '2'
 
+@pytest.mark.parametrize(
+    "telegram_username, output",
+    [
+        ("1", {'username': '1_username', 'password': '1_password'}),
+        ("2", {'username': '2_username', 'password': '2_password'}),
+        ("3", {'username': '3_username', 'password': '3_password'}),
+    ]
+)
+def test_remember_username_password(db_conn, fake_transaction,
+                                    telegram_username, output):
+    from create_users.db_operations import remember_username_password
+
+    unwrapped_remember_username_password = remember_username_password.__wrapped__
+    result = unwrapped_remember_username_password
+
+    assert result(telegram_username, conn=db_conn) == output
+

@@ -120,3 +120,15 @@ def test_delete_candidate_from_db(db_conn, fake_transaction, fake_select):
         ('1', '1_username', '1_password'),
         ('3', '3_username', '3_password'),
     ]
+
+def test_delete_candidate_from_db_return(db_conn, fake_transaction):
+    from create_users.db_operations import delete_candidate_from_db
+
+    unwrapped_delete_candidate_from_db = delete_candidate_from_db.__wrapped__
+    result = unwrapped_delete_candidate_from_db(
+        "2",
+        conn=db_conn
+    )
+
+    assert result == '2'
+

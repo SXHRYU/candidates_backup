@@ -181,3 +181,18 @@ class Test_db_operations:
             ("added_5", "added_5_username", "added_5_password"),
             ("0", "0_username", "0_password")
         ]
+
+class Test_generation:
+    @pytest.mark.parametrize(
+        "telegram_username, account_username",
+        [
+            ("slava", "slava_test_Annotator"),
+            ("123456789", "123456789_test_Annotator"),
+            ("test_test_test_test", "test_test_test_test_test_Annotator")
+        ]
+    )
+    def test_generate_username(self, telegram_username, account_username):
+        from create_users.generation import generate_username
+
+        assert generate_username(telegram_username) == account_username
+

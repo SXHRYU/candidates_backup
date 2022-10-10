@@ -40,8 +40,8 @@ jobs:
       - name: Installing Dependencies
         run: pip install -r requirements.txt
 
-      - name: pytest -v tests/create_users_test.py
-        run: pytest -v tests/create_users_test.py
+      - name: pytest -vv tests/create_users_test.py
+        run: pytest -vv tests/create_users_test.py
       
   test-tasks_generator:
     runs-on: ubuntu-latest

@@ -2,12 +2,14 @@ from os import environ, getenv
 import pytest
 import psycopg2
 
-
-environ["ADMIN_ID"] = "1"
-environ["PLATE_VALUES"] = ""
-environ["ROOT_DIR"] = ""
-environ["ALL_RESULTS_EXCEL_DIR"] = ""
-environ["USER_IMAGES_DIR"] = ""
+if getenv("CI"):
+    ...
+else:
+    environ["ADMIN_ID"] = "1"
+    environ["PLATE_VALUES"] = ""
+    environ["ROOT_DIR"] = ""
+    environ["ALL_RESULTS_EXCEL_DIR"] = ""
+    environ["USER_IMAGES_DIR"] = ""
 
 @pytest.fixture
 def db_conn(monkeypatch):

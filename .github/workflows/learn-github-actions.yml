@@ -5,7 +5,6 @@ jobs:
   test-create_users:
     runs-on: ubuntu-latest
     env:
-
       ADMIN_ID: 1
       PLATE_VALUES: ""
       ROOT_DIR: ""

@@ -58,6 +58,4 @@ def test_get_all_candidates(db_conn, fake_transaction):
     fake_transaction
     unwrapped_get_all_candidates = get_all_candidates.__wrapped__
     result = ['1', '2', '3']
-    if getenv("CI"):
-        result = ["2222"]
     assert unwrapped_get_all_candidates(conn=db_conn) == result

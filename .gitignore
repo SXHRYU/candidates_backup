@@ -10,3 +10,4 @@ venv
 *Annotator*
 /all_results/*
 !/all_results/.gitkeep
+.pytest_cache

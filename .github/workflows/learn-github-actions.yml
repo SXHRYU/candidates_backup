@@ -5,13 +5,7 @@ jobs:
   test-create_users:
     runs-on: ubuntu-latest
     env:
-      # TODO: set up for future
-      DB_PORT: 5432
-      DB_NAME: test_db
-      DB_USER: test_user
-      DB_PASSWORD: test_password
-      DB_HOST: localhost
-      TABLE_CANDIDATES: candidates
+
       ADMIN_ID: 1
       PLATE_VALUES: ""
       ROOT_DIR: ""

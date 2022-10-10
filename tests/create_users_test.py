@@ -11,6 +11,7 @@ else:
     environ["ALL_RESULTS_EXCEL_DIR"] = ""
     environ["USER_IMAGES_DIR"] = ""
 
+
 @pytest.fixture
 def db_conn(monkeypatch):
     monkeypatch.setenv("DB_PORT", "5432")
@@ -102,5 +103,20 @@ def test_add_candidate_to_db_return(db_conn, fake_transaction):
         conn=db_conn
     )
 
-    
     assert added_candidate == "tester"
+
+def test_delete_candidate_from_db(db_conn, fake_transaction, fake_select):
+    from create_users.db_operations import delete_candidate_from_db
+
+    unwrapped_delete_candidate_from_db = delete_candidate_from_db.__wrapped__
+    unwrapped_delete_candidate_from_db(
+        "2",
+        conn=db_conn
+    )
+
+    results = fake_select()
+
+    assert results == [
+        ('1', '1_username', '1_password'),
+        ('3', '3_username', '3_password'),
+    ]
